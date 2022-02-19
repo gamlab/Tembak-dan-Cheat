@@ -27,9 +27,9 @@ public class PlayerControll : MonoBehaviour
     {
         float forceX = 0f;
         float currentVel = Mathf.Abs(myBody.velocity.x);
+        myAnim.SetFloat("velocityX", currentVel);
         if (Input.GetKey(KeyCode.A))
         {
-            myAnim.SetFloat("FloatValue", 2);
             if (currentVel < maxVelocity)
             {
                 forceX = -velocity;
@@ -41,12 +41,6 @@ public class PlayerControll : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.D))
         {
-            myAnim.SetFloat("FloatValue", -2);
-            myAnim.SetInteger();
-            myAnim.SetBool();
-
-            myAnim.SetTrigger();
-
             if (currentVel < maxVelocity)
             {
                 forceX = velocity;
