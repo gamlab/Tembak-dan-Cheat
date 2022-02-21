@@ -12,6 +12,21 @@ public class PlayerControll : MonoBehaviour
 
     public Animator myAnim;
 
+    public float jumpForce;
+
+    public BoxCollider2D myBoxCollider;
+
+    public float distance;
+    public LayerMask groundLayer;
+
+    bool isGrounded = true;
+
+    public GameObject peluru;
+    public Transform firingPoint;
+
+    public float deltaTime;
+    bool canShoot = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +35,24 @@ public class PlayerControll : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        GroundCheck();
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
+            myBody.AddForce(new Vector2(0f, jumpForce));
+        }
+        if (Input.GetKey(KeyCode.Mouse0) && canShoot)
+        {
+            Debug.Log("test");
+            StartCoroutine(Shoot());
+        }
+    }
 
+    IEnumerator Shoot()
+    {
+        canShoot = false;
+        Instantiate(peluru, firingPoint.position, firingPoint.rotation);
+        yield return new WaitForSeconds(deltaTime);
+        canShoot = true;
     }
 
     private void FixedUpdate()
@@ -59,5 +91,25 @@ public class PlayerControll : MonoBehaviour
     {
         lookRight = !lookRight;
         transform.Rotate(0f, 180f, 0f);
+    }
+
+    void GroundCheck()
+    {
+        RaycastHit2D hit = Physics2D.BoxCast(myBoxCollider.bounds.center, myBoxCollider.bounds.size, 0f, Vector2.down, distance , groundLayer);
+        Color rayColor;
+        if(hit.collider != null)
+        {
+            isGrounded = true;
+            rayColor = Color.green;
+        }
+        else
+        {
+            isGrounded = false;
+            rayColor = Color.red;
+        }
+        myAnim.SetBool("isGrounded", isGrounded);
+        Debug.DrawRay(myBoxCollider.bounds.center + new Vector3(myBoxCollider.bounds.extents.x, 0), Vector2.down * (myBoxCollider.bounds.extents.y + distance), Color.blue);
+        Debug.DrawRay(myBoxCollider.bounds.center - new Vector3(myBoxCollider.bounds.extents.x, 0), Vector2.down * (myBoxCollider.bounds.extents.y + distance), Color.yellow);
+        Debug.DrawRay(myBoxCollider.bounds.center - new Vector3(myBoxCollider.bounds.extents.x, myBoxCollider.bounds.extents.y + distance), Vector2.right * (distance * 2), rayColor);
     }
 }
