@@ -42,7 +42,6 @@ public class PlayerControll : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.Mouse0) && canShoot)
         {
-            Debug.Log("test");
             StartCoroutine(Shoot());
         }
     }
