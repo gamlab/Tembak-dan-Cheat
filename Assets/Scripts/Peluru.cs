@@ -7,18 +7,27 @@ public class Peluru : MonoBehaviour
     public float speed;
     public Rigidbody2D myBody;
 
-    public float peluruLivetime;
+    public int damagePeluru;
 
     // Start is called before the first frame update
     void Start()
     {
         myBody.velocity = transform.right * new Vector2(speed, 0f);
-        Destroy(gameObject, peluruLivetime);
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Enemy"))
+        {
+            collision.GetComponent<Enemy>().TakeDamage(damagePeluru);
+        }
+
+        Destroy(gameObject);
     }
 }
