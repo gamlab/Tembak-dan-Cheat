@@ -9,6 +9,8 @@ public class Pickable : MonoBehaviour
 
     public AnimationClip animFeedback;
 
+    public int scoreGet;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +27,7 @@ public class Pickable : MonoBehaviour
     {
         if(collision.CompareTag("Player"))
         {
+            collision.GetComponent<PlayerControll>().ChangeScore(scoreGet);
             GameObject itemFeedbackPrefab = Instantiate(itemFeedback, transform.position, Quaternion.identity);
             Destroy(itemFeedbackPrefab, animFeedback.length);
             Destroy(gameObject);
