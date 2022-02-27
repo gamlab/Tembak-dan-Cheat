@@ -27,6 +27,8 @@ public class PlayerControll : MonoBehaviour
     public float deltaTime;
     bool canShoot = true;
 
+    public int scorePlayer = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -110,5 +112,10 @@ public class PlayerControll : MonoBehaviour
         Debug.DrawRay(myBoxCollider.bounds.center + new Vector3(myBoxCollider.bounds.extents.x, 0), Vector2.down * (myBoxCollider.bounds.extents.y + distance), Color.blue);
         Debug.DrawRay(myBoxCollider.bounds.center - new Vector3(myBoxCollider.bounds.extents.x, 0), Vector2.down * (myBoxCollider.bounds.extents.y + distance), Color.yellow);
         Debug.DrawRay(myBoxCollider.bounds.center - new Vector3(myBoxCollider.bounds.extents.x, myBoxCollider.bounds.extents.y + distance), Vector2.right * (distance * 2), rayColor);
+    }
+
+    public void ChangeScore(int score)
+    {
+        scorePlayer += score;
     }
 }

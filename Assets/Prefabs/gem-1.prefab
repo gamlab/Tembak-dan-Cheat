@@ -118,6 +118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemFeedback: {fileID: 1428885869284966581, guid: 849b9f0578a06f342a70f1846037cfb4, type: 3}
   animFeedback: {fileID: 7400000, guid: 85e8f8e44e23fb9449a6862f086c4393, type: 2}
+  scoreGet: 15
 --- !u!61 &8964003173703022491
 BoxCollider2D:
   m_ObjectHideFlags: 0
