@@ -6,7 +6,7 @@ public class PlayerControll : MonoBehaviour
 {
     bool lookRight = true;
 
-    public Rigidbody2D myBody;
+    private Rigidbody2D myBody;
 
     public float velocity, maxVelocity;
 
@@ -29,9 +29,15 @@ public class PlayerControll : MonoBehaviour
 
     public int scorePlayer = 0;
 
+    private void Awake()
+    {
+        myBody = GetComponent<Rigidbody2D>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
+        
     }
 
     // Update is called once per frame
@@ -46,6 +52,12 @@ public class PlayerControll : MonoBehaviour
         {
             StartCoroutine(Shoot());
         }
+        //y frame sebelumnya
+    }
+
+    private void LateUpdate()
+    {
+        //y frame saat ini apakah lebih rendah dari y frame sebelumnya
     }
 
     IEnumerator Shoot()
@@ -117,5 +129,16 @@ public class PlayerControll : MonoBehaviour
     public void ChangeScore(int score)
     {
         scorePlayer += score;
+
+        scorePlayer = Mathf.Clamp(scorePlayer, 0, 100);
+
+        //if(scorePlayer < 0)
+        //{
+        //    scorePlayer = 0;
+        //}
+        //else if(scorePlayer > 100)
+        //{
+        //    scorePlayer = 100;
+        //}
     }
 }
